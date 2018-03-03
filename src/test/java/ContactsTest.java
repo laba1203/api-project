@@ -73,6 +73,18 @@ public class ContactsTest {
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 404 Not Found");
     }
 
+    //negative verifications:
+    @Test
+    public void test4_option(){
+        Assert.assertEquals(resource.options().statusLine(), "HTTP/1.1 405 Method Not Allowed");
+    }
+
+    @Test
+    public void test5_head(){
+        Assert.assertEquals(resource.head().statusLine(), "HTTP/1.1 405 Method Not Allowed");
+    }
+
+
 
 }
 
