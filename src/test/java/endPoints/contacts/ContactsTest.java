@@ -1,9 +1,13 @@
+package endPoints.contacts;
+
 import com.jayway.restassured.response.Response;
+import dataObjects.contact.ContactData;
+import endPoints.contact.Contact;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ContactsTest {
-    private Contacts resource = new Contacts();
+    private Contacts contacts = new Contacts();
     private Response postResponse;
     private String number = String.valueOf(System.currentTimeMillis()).substring(10);
     private String firstName = "first_name" + number;
@@ -17,13 +21,14 @@ public class ContactsTest {
 
     @Test
     public void test1_checkPostResponseBody(){
-        postResponse = resource.post(firstName, lastName);
+        postResponse = contacts.post(firstName, lastName);
         contact = new Contact(postResponse);
-        id = contact.getId();
+        id = contact.getContactData().getId();
+        ContactData data = contact.getContactData();
 
         Assert.assertEquals(
-                contact.getFirstName() + ", " + contact.getLastName() + ", " + contact.getEmail(),
-                firstName + ", " + lastName + ", " + firstName+"."+lastName+"@gmail.com"
+                data.getFirstName() + ", " + data.getLastName() + ", " + data.getEmail(),
+                firstName + ", " + lastName + ", " + email
         );
     }
 
@@ -34,20 +39,22 @@ public class ContactsTest {
 
     @Test
     public void test3_getContacts(){
-        Response getResp = resource.get();
-        Assert.assertEquals(resource.get().getStatusLine(), "HTTP/1.1 200 OK");
+        Response getResp = contacts.get();
+        Assert.assertEquals(contacts.get().getStatusLine(), "HTTP/1.1 200 OK");
     }
 
     @Test
     public void test4_getContact(){
-        Response getResp = resource.get(firstName, lastName, email);
-        Assert.assertEquals(resource.get().getStatusLine(), "HTTP/1.1 200 OK");
+        Response getResp = contacts.get(firstName, lastName, email);
+        Assert.assertEquals(contacts.get().getStatusLine(), "HTTP/1.1 200 OK");
+        System.out.print("LOG: ");
         getResp.body().print();
     }
 
     @Test
     public void test5_updateContact(){
         Response response = contact.put("NewName", "NewLName", "test@t.com");
+        System.out.print("LOG: ");
         response.body().print();
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 200 OK");
     }
@@ -55,6 +62,7 @@ public class ContactsTest {
     @Test
     public void test6_patchContact(){
         Response response = contact.patch("firstName", "UpdateName");
+        System.out.print("LOG: ");
         response.body().print();
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 200 OK");
     }
@@ -62,26 +70,30 @@ public class ContactsTest {
     @Test
     public void test7_delete(){
         Response response = contact.delete();
+        System.out.print("LOG: ");
         response.body().print();
+
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 200 OK");
     }
 
     @Test
     public void test8_checkThatContactDeleted(){
         Response response = contact.get();
+        System.out.print("LOG: ");
         response.body().print();
+
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 404 Not Found");
     }
 
     //negative verifications:
     @Test
     public void test4_option(){
-        Assert.assertEquals(resource.options().statusLine(), "HTTP/1.1 405 Method Not Allowed");
+        Assert.assertEquals(contacts.options().statusLine(), "HTTP/1.1 405 Method Not Allowed");
     }
 
     @Test
     public void test5_head(){
-        Assert.assertEquals(resource.head().statusLine(), "HTTP/1.1 405 Method Not Allowed");
+        Assert.assertEquals(contacts.head().statusLine(), "HTTP/1.1 405 Method Not Allowed");
     }
 
 

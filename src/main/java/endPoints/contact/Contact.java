@@ -1,23 +1,23 @@
+package endPoints.contact;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
+import dataObjects.contact.ContactData;
+import endPoints.AbstractResource;
+import endPoints.contacts.Contacts;
 
-public class Contact extends AbstractResource{
+public class Contact extends AbstractResource {
 
     private String url;
-
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String id;
+    private ContactData contact = new ContactData();
 
     private String uuidLink;
 
     public Contact(Response postResponse)
     {
         setContactAttributes(postResponse);
-        url = Contacts.getUrl() + "/" + id;
+        url = Contacts.getUrl() + "/" + contact.getId();
         setUrl(url);
     }
 
@@ -25,10 +25,13 @@ public class Contact extends AbstractResource{
     private void setContactAttributes(Response response){
 
         JsonPath jsonPath = new JsonPath(response.body().print()).setRoot("data");
-        firstName = getString(jsonPath,"info.firstName");
-        lastName = getString(jsonPath,"info.lastName");
-        email = getString(jsonPath,"info.email");
-        id = getString(jsonPath,"id");
+
+        contact.setContactData(
+                getString(jsonPath,"info.firstName"),
+                getString(jsonPath,"info.lastName"),
+                getString(jsonPath,"info.email"),
+                getString(jsonPath,"id")
+        );
     }
 
     private String getString(JsonPath jsonPath, String path){
@@ -60,46 +63,7 @@ public class Contact extends AbstractResource{
 
 
 
-
-
-    public void printContact(){
-        System.out.println("<<------- Contact Details ----->>");
-        System.out.println("firstName: " + firstName);
-        System.out.println("lastName: " + lastName);
-        System.out.println("email: " + email);
-        System.out.println("id: " + id);
-        System.out.println("<<---- ---- ---- ---- ---- ---->>\r\n");
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUrl(){
-        return url;
+    public ContactData getContactData(){
+        return contact;
     }
 }

@@ -1,11 +1,14 @@
+package endPoints.applicationDescription;
+
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
 import com.jayway.restassured.response.Response;
+import util.PropertyLoader;
 
 import static com.jayway.restassured.RestAssured.get;
 
 public class ApplicationDescription {
-    private String url = "http://192.168.1.102:8182/application.wadl";
+    private String url = PropertyLoader.loadEnvProperty("address") + PropertyLoader.loadApplicationProperty("resource.application.wadl");
     private Response resp = get(url);
 
 

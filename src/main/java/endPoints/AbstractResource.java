@@ -1,3 +1,5 @@
+package endPoints;
+
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 

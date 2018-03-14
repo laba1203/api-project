@@ -1,4 +1,7 @@
+package endPoints.healthcheck;
+
 import com.jayway.restassured.response.Response;
+import endPoints.healthcheck.Healthcheck;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -6,8 +9,8 @@ import org.testng.annotations.Test;
 
 public class HealthcheckTest {
 
-    Healthcheck resource;
-    Response response;
+    private Healthcheck resource;
+    private Response response;
 
     @BeforeClass
     public void setup() {
