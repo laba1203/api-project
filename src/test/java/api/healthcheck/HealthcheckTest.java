@@ -1,41 +1,44 @@
-package endPoints.healthcheck;
+package api.healthcheck;
 
 import com.jayway.restassured.response.Response;
-import endPoints.healthcheck.Healthcheck;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 
 public class HealthcheckTest {
 
     private Healthcheck resource;
-    private Response response;
+    private Response positiveResponse;
 
     @BeforeClass
     public void setup() {
         resource = new Healthcheck();
-        response = resource.get();
     }
 
-    @Test
+    @BeforeGroups("positive")
+    public void get(){
+        positiveResponse = resource.get();
+    }
+
+    @Test(groups = "positive")
     public void test1_checkGetStatus(){
-        Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 200 OK");
+        Assert.assertEquals(positiveResponse.getStatusLine(), "HTTP/1.1 200 OK");
     }
 
-    @Test
+    @Test(groups = "positive")
     public void test2_checkGetContentType(){
-        Assert.assertEquals(response.getContentType(), "text/plain");
+        Assert.assertEquals(positiveResponse.getContentType(), "text/plain");
     }
 
-    @Test
+    @Test(groups = "positive")
     public void test3_checkBody(){
-        Assert.assertEquals(response.body().print(), "live");
+        Assert.assertEquals(positiveResponse.body().print(), "live");
     }
 
 
     //Not allowed methods:
-
 
     @Test
     public void test4_option(){

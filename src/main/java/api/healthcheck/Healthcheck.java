@@ -1,4 +1,4 @@
-package endPoints.healthcheck;
+package api.healthcheck;
 
 import endPoints.AbstractResource;
 import util.PropertyLoader;

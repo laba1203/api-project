@@ -11,11 +11,13 @@ public class ContactData {
 
     }
 
-    public void setContactData(String firstName, String lastName, String email, String id) {
+    public ContactData setContactData(String firstName, String lastName, String email, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.id = id;
+
+        return this;
     }
 
 

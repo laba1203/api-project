@@ -1,9 +1,11 @@
 <suite name="SuiteName1">
     <test name="Testing1" preserve-order="true" >
         <classes>
-            <class name="endPoints.healthcheck.HealthcheckTest">
+            <class name="api.healthcheck.HealthcheckTest">
             </class>
-            <class name="endPoints.contacts.ContactsTest">
+            <class namxke="api.contacts.ContactsTest">
+            </class>
+            <class name="api.contacts.ContactsNegativeTest">
             </class>
         </classes>
 

@@ -1,17 +1,17 @@
-package endPoints.contacts;
+package services.contacts;
 
 import com.jayway.restassured.response.Response;
 import dataObjects.contact.ContactData;
 import endPoints.contact.Contact;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.TestData;
 
 public class ContactsTest {
     private Contacts contacts = new Contacts();
     private Response postResponse;
-    private String number = String.valueOf(System.currentTimeMillis()).substring(10);
-    private String firstName = "first_name" + number;
-    private String lastName = "last_name" + number;
+    private String firstName = "first_name" + TestData.random();
+    private String lastName = "last_name" + TestData.random();
     private String email = firstName + "." + lastName + "@gmail.com";
     private String id;
 
@@ -84,19 +84,6 @@ public class ContactsTest {
 
         Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 404 Not Found");
     }
-
-    //negative verifications:
-    @Test
-    public void test4_option(){
-        Assert.assertEquals(contacts.options().statusLine(), "HTTP/1.1 405 Method Not Allowed");
-    }
-
-    @Test
-    public void test5_head(){
-        Assert.assertEquals(contacts.head().statusLine(), "HTTP/1.1 405 Method Not Allowed");
-    }
-
-
 
 }
 

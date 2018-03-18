@@ -5,7 +5,8 @@ import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
 import dataObjects.contact.ContactData;
 import endPoints.AbstractResource;
-import endPoints.contacts.Contacts;
+import services.contacts.Contacts;
+import util.TestData;
 
 public class Contact extends AbstractResource {
 
@@ -43,7 +44,7 @@ public class Contact extends AbstractResource {
     public Response put(String firstName, String lastName, String email){
         Response response = RestAssured.given()
                 .contentType("application/json")
-                .body("{\"email\":\""+email+"\",\"firstName\":\""+firstName+"\",\"lastName\":\""+lastName+"\"}").
+                .body(TestData.getPutBody(firstName, lastName, email)).
                         when().
                         post(url);
         setContactAttributes(get());
@@ -53,7 +54,7 @@ public class Contact extends AbstractResource {
     public Response patch(String key, String value){
         Response response = RestAssured.given()
                 .contentType("application/json")
-                .body("{\"" + key +"\":\"" + value + "\"}" ).
+                .body(TestData.getPatchBody(key, value)).
                         when().
                         patch(url);
         setContactAttributes(get());
