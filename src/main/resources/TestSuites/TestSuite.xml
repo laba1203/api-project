@@ -8,8 +8,7 @@
             <class name="api.contacts.ContactsNegativeTest">
             </class>
         </classes>
-
-
+        
     </test>
 
 </suite>

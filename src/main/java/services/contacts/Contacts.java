@@ -2,16 +2,11 @@ package services.contacts;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
-import dataObjects.contact.ContactData;
 import dataObjects.contacts.ContactsList;
 import endPoints.AbstractResource;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.testng.Assert;
 import util.PropertyLoader;
 import util.TestData;
-
-import java.util.ArrayList;
 
 public class Contacts extends AbstractResource {
     private ContactsList contactsList;
@@ -27,13 +22,18 @@ public class Contacts extends AbstractResource {
         return RestAssured.get(URL + "?" + param1 + "&" + param2 + "&" + param3);
     }
 
-    public Response post(String firstName, String lastName){
+    public Response post(String firstName, String lastName, String email){
         return RestAssured.given()
                 .contentType("application/json")
-                .body(TestData.getPostBody(firstName, lastName)).
+                .body(TestData.generatePostBody(firstName, lastName, email)).
              when().
                  post(URL);
     }
+
+    public Response post(String firstName, String lastName){
+        return  post(firstName, lastName, firstName + "." + lastName + "@gmail.com");
+    }
+
 
 
     private void setContactsList(Response response){

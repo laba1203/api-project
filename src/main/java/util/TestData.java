@@ -2,8 +2,8 @@ package util;
 
 public class TestData {
 
-    public static String getPostBody(String firstName, String lastName){
-        return "{\"email\":\""+ firstName +"."+lastName+"@gmail.com\",\"firstName\":\""+firstName+"\",\"lastName\":\""+lastName+"\"}";
+    public static String generatePostBody(String firstName, String lastName, String email){
+        return "{\"email\":\""+ email + "\",\"firstName\":\""+firstName+"\",\"lastName\":\""+lastName+"\"}";
     }
 
     public static String getPutBody(String firstName, String lastName, String email){

@@ -1,5 +1,9 @@
 package dataObjects.contact;
 
+import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.restassured.response.Response;
+import endPoints.contact.Contact;
+
 public class ContactData {
 
     private String firstName;
@@ -16,6 +20,16 @@ public class ContactData {
         this.lastName = lastName;
         this.email = email;
         this.id = id;
+
+        return this;
+    }
+
+    public ContactData setContactData(Response response){
+        JsonPath jsonPath = new JsonPath(response.body().print()).setRoot("data");
+        firstName = jsonPath.getString("info.firstName");
+        lastName = jsonPath.getString("info.lastName");
+        email = jsonPath.getString("info.email");
+        id = jsonPath.getString("id");
 
         return this;
     }

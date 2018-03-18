@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class ContactsList{
     private ArrayList<ContactData> contactsList;
 
-
     public ContactsList(Response response){
          setContactsList(response);
     }
@@ -42,6 +41,29 @@ public class ContactsList{
             Assert.fail("FAILED: Contacts List array is null");
         }
     }
+
+    public boolean findContact(String id, String firstName, String lastName, String email){
+        for (ContactData contact :
+                contactsList) {
+            if(contact.getId().equals(id)){
+                if(compareAttributes(contact, firstName, lastName, email)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean findContact(ContactData contact){
+        return findContact(contact.getId(), contact.getFirstName(), contact.getLastName(), contact.getEmail());
+    }
+
+    private boolean compareAttributes(ContactData contact, String firstName, String lastName, String email){
+        return contact.getFirstName().equals(firstName) &&
+                contact.getLastName().equals(lastName) &&
+                contact.getEmail().equals(email);
+    }
+
 
 
 }

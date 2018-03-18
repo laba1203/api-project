@@ -24,7 +24,6 @@ public class Contact extends AbstractResource {
 
 
     private void setContactAttributes(Response response){
-
         JsonPath jsonPath = new JsonPath(response.body().print()).setRoot("data");
 
         contact.setContactData(
