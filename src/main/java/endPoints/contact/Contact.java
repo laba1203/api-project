@@ -11,14 +11,14 @@ import util.TestData;
 public class Contact extends AbstractResource {
 
     private String url;
-    private ContactData contact = new ContactData();
+    private ContactData contactData = new ContactData();
 
     private String uuidLink;
 
     public Contact(Response postResponse)
     {
         setContactAttributes(postResponse);
-        url = Contacts.getUrl() + "/" + contact.getId();
+        url = Contacts.getUrl() + "/" + contactData.getId();
         setUrl(url);
     }
 
@@ -26,7 +26,7 @@ public class Contact extends AbstractResource {
     private void setContactAttributes(Response response){
         JsonPath jsonPath = new JsonPath(response.body().print()).setRoot("data");
 
-        contact.setContactData(
+        contactData.setContactData(
                 getString(jsonPath,"info.firstName"),
                 getString(jsonPath,"info.lastName"),
                 getString(jsonPath,"info.email"),
@@ -64,6 +64,6 @@ public class Contact extends AbstractResource {
 
 
     public ContactData getContactData(){
-        return contact;
+        return contactData;
     }
 }

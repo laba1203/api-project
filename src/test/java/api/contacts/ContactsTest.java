@@ -81,7 +81,22 @@ public class ContactsTest {
     }
 
     @Test(groups = "filter")
-    public void test31_filterContacts(){
+    public void test31_filterContactsByEmail(){
+        //todo:
+    }
+
+    @Test(groups = "filter")
+    public void test32_filterContactsByFirstName(){
+        //todo:
+    }
+
+    @Test(groups = "filter")
+    public void test33_filterContactsByLastName(){
+        //todo:
+    }
+
+    @Test(groups = "filter")
+    public void test34_filterContactsByMultipleAttributes(){
         //todo:
     }
 
