@@ -9,11 +9,13 @@ import org.testng.annotations.Test;
 import services.contacts.Contacts;
 import util.TestData;
 
-public class ContactsTest {
+public class ContactsTest { //TODO Not clear why you separated Contacts & Contact test packages?
     private Contacts contacts = new Contacts();
     private String firstName = "first_name" + TestData.random();
     private String lastName = "last_name" + TestData.random();
     private String email = "email" + TestData.random() + "@test.com";
+    // TODO I would recommend to use HashMap<Key, Value> when you need to define test values for the JSON request body instead of defining each field separately. It will be hard to support it in the future.
+    // TODO Also better to move test data generation into separate class and only call it's object in test to avoid duplications.
 
     private ContactData contactData;
     private ContactsList contactsList;
@@ -26,7 +28,7 @@ public class ContactsTest {
     @Test(groups = "post")
     public void postContact(){
         contactsList = new ContactsList(contacts.get());
-        postResponse = contacts.post(firstName, lastName, email);
+        postResponse = contacts.post(firstName, lastName, email); // TODO this method should have as an input one body object instead of separate fields)
         contactData = new ContactData().setContactData(postResponse);
     }
 
@@ -36,7 +38,7 @@ public class ContactsTest {
     }
 
     @Test(groups = "post")
-    public void test12_checkPostResponseBody(){
+    public void test12_checkPostResponseBody(){ // TODO You can do this assert within previous test to avoid call of POST method two times.
         Assert.assertEquals(
                 contactData.getFirstName()+ ", " + contactData.getLastName() + ", " + contactData.getEmail(),
                 firstName+ ", " + lastName + ", " + email
@@ -65,7 +67,7 @@ public class ContactsTest {
     }
 
     @Test(groups = "get")
-    public void test22_checkGetResponseBody(){
+    public void test22_checkGetResponseBody(){ // TODO You can do this assert within previous test to avoid call of GET method two times.
         Assert.assertEquals(
                 contactsList.findContact(contactData),
                 true,

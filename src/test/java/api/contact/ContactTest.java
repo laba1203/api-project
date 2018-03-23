@@ -10,12 +10,15 @@ import org.testng.annotations.Test;
 import services.contacts.Contacts;
 import util.TestData;
 
-public class ContactTest {
+public class ContactTest { //TODO Not clear why you separated Contacts & Contact test packages?
 
     private Contacts contacts = new Contacts();
     private String firstName = "first_name" + TestData.random();
     private String lastName = "last_name" + TestData.random();
     private String email = "email" + TestData.random() + "@test.com";
+    // TODO I would recommend to use HashMap<Key, Value> when you need to define test values for the JSON request body instead of defining each field separately. It will be hard to support it in the future.
+    // TODO Also better to move test data generation into separate class and only call it's object in test to avoid duplications.
+
     private Contact contact;
     private ContactsList contactsList;
 

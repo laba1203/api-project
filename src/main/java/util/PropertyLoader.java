@@ -6,7 +6,8 @@ import java.util.Properties;
 public class PropertyLoader {
 
 
-    private static final String ENV_PROP_FILE = "/env.properties";
+    private static final String ENV_PROP_FILE = "/env.properties"; // TODO You need to have possibility to switch between environments when running test cases using maven.
+    // TODO You can use maven execution properties to choose env, for example 'mvn clean test -Denvironment=env1'
     private static final String APP_PROP_FILE = "/application.properties";
     //
 

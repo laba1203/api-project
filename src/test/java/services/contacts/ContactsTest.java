@@ -13,6 +13,8 @@ public class ContactsTest {
     private String firstName = "first_name" + TestData.random();
     private String lastName = "last_name" + TestData.random();
     private String email = firstName + "." + lastName + "@gmail.com";
+    // TODO I would recommend to use HashMap<Key, Value> when you need to define test values for the JSON request body instead of defining each field separately. It will be hard to support it in the future.
+    // TODO Also better to move test data generation into separate class and only call it's object in test to avoid duplications.
     private String id;
 
     private Contact contact;
@@ -33,7 +35,7 @@ public class ContactsTest {
     }
 
     @Test
-    public void test2_checkResponseStatus(){
+    public void test2_checkResponseStatus(){ //TODO it you would like to create end-to-end scenario, you should have all of it within one test, not separated into 8 tests.
         Assert.assertEquals(postResponse.getStatusLine(), "HTTP/1.1 201 Created");
     }
 

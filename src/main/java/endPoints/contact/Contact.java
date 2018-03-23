@@ -40,7 +40,8 @@ public class Contact extends AbstractResource {
         return jsonaValue.substring(1, size-1);
     }
 
-    public Response put(String firstName, String lastName, String email){
+    public Response put(String firstName, String lastName, String email){ // TODO All API methods (POST, GET, PUT, DELETE, etc.) for one type of resources (contacts) should be within one API definition file.
+    //TODO same as for POST you nee dto have one input BODY object instead of separate fields
         Response response = RestAssured.given()
                 .contentType("application/json")
                 .body(TestData.getPutBody(firstName, lastName, email)).
@@ -50,7 +51,8 @@ public class Contact extends AbstractResource {
         return response;
     }
 
-    public Response patch(String key, String value){
+    public Response patch(String key, String value){ // TODO All API methods (POST, GET, PUT, DELETE, etc.) for one type of resources (contacts) should be within one API definition file.
+    //TODO same as for POST you nee dto have one input BODY object instead of separate fields
         Response response = RestAssured.given()
                 .contentType("application/json")
                 .body(TestData.getPatchBody(key, value)).

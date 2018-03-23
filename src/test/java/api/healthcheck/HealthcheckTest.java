@@ -25,14 +25,14 @@ public class HealthcheckTest {
     @Test(groups = "positive")
     public void test1_checkGetStatus(){
         Assert.assertEquals(positiveResponse.getStatusLine(), "HTTP/1.1 200 OK");
-    }
+    } // TODO It's common practice to verify response code instead of text status line.
 
-    @Test(groups = "positive")
+    @Test(groups = "positive") // TODO Usually one do not need to have separate test for each validation of the same request. For one request it's better to do several assertions in one test.
     public void test2_checkGetContentType(){
         Assert.assertEquals(positiveResponse.getContentType(), "text/plain");
     }
 
-    @Test(groups = "positive")
+    @Test(groups = "positive") // TODO Same as previous. So better have test1 test2 test3 for healtchcheck as one test.
     public void test3_checkBody(){
         Assert.assertEquals(positiveResponse.body().print(), "live");
     }
@@ -43,12 +43,12 @@ public class HealthcheckTest {
     @Test
     public void test4_option(){
         Assert.assertEquals(resource.options().statusLine(), "HTTP/1.1 405 Method Not Allowed");
-    }
+    } // TODO It's common practice to verify response code instead of text status line.
 
     @Test
     public void test5_head(){
         Assert.assertEquals(resource.head().statusLine(), "HTTP/1.1 405 Method Not Allowed");
-    }
+    } // TODO If you have duplicated messages in a lot of test cases, need to move these into constants.
 
     @Test
     public void test6_post(){

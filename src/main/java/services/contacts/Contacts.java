@@ -22,7 +22,7 @@ public class Contacts extends AbstractResource {
         return RestAssured.get(URL + "?" + param1 + "&" + param2 + "&" + param3);
     }
 
-    public Response post(String firstName, String lastName, String email){
+    public Response post(String firstName, String lastName, String email){  // TODO this method should have as an input one body object instead of separate fields)
         return RestAssured.given()
                 .contentType("application/json")
                 .body(TestData.generatePostBody(firstName, lastName, email)).
